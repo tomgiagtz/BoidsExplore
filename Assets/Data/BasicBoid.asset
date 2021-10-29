@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600135b4a1cfdd449bc6e663490c9a7, type: 3}
+  m_Name: BasicBoid
+  m_EditorClassIdentifier: 
+  boidPrefab: {fileID: 8235787436259712277, guid: 63549dcc6244ddd4b88756f486f5e0af, type: 3}
+  numBoids: 400
+  spawnRadius: 1
+  maxRadius: 10
+  maxNeighbors: 15
+  minSpeed: 1
+  maxSpeed: 2
+  maxAccel: 1
+  separationWeight: 1
+  alignmentWeight: 0
+  cohesionWeight: 0
+  noiseWeight: 1
+  perceptionRadius: 5
+  avoidanceRadius: 5
+  avoidanceWeight: 2
