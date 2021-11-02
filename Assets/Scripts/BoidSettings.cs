@@ -19,10 +19,13 @@ public class BoidSettings : ScriptableObject
 
     public float separationWeight = 1f; 
     public float alignmentWeight = 1f;
-    public float cohesionWeight = 1f;
+    public float cohesionWeight = 0.5f;
     public float noiseWeight = 1f;
 
     public float perceptionRadius = 5f;
     public float avoidanceRadius = 2f;
     public float avoidanceWeight = 1f;
+
+    public float movementSmooth = 1f;
+    public float rotationSmooth = 1f;
 }

@@ -13,6 +13,11 @@ public class BoidController : MonoBehaviour {
     BoidSettings settings;
     BoidController[] neighbors;
 
+    void Start() {
+        Animator anim = GetComponent<Animator>();
+        anim.SetFloat("Offset", Random.Range(0.7f, 1.3f));
+    }
+
     public void Initialize(BoidSettings settings_) {
         settings = settings_;
         neighbors = new BoidController[settings.maxNeighbors];
@@ -60,6 +65,35 @@ public class BoidController : MonoBehaviour {
         return separationDir.normalized * settings.separationWeight;
     }
 
+    Vector3 Alignment() {
+        Vector3 alignmentDir = Vector3.zero;
+        int neighborCount = 0;
+        foreach (BoidController neighbor in neighbors) {
+            if (neighbor != null) {
+                alignmentDir += neighbor.velocity;
+                neighborCount++;
+            }
+        }
+        alignmentDir /= neighborCount;
+        return alignmentDir.normalized * settings.alignmentWeight;
+    }
+
+    Vector3 Cohesion() {
+        Vector3 centerOfMass = Vector3.zero;
+        int neighborCount = 0;
+        foreach (BoidController neighbor in neighbors) {
+            if (neighbor != null) {
+                centerOfMass += neighbor.transform.position;
+                neighborCount++;
+            }
+        }
+        if (neighborCount > 0) {
+            centerOfMass /= neighborCount;
+            return (centerOfMass - transform.position).normalized * settings.cohesionWeight;
+        }
+        return Vector3.zero;
+    }
+
     Vector3 Noise() {
         return FlockController.Instance.GetFlockNoise(transform.position) * settings.noiseWeight;
     }
@@ -70,6 +104,8 @@ public class BoidController : MonoBehaviour {
 
         acceleration += EdgeAvoidance();
         acceleration += Separation();
+        acceleration += Alignment();
+        acceleration += Cohesion();
         acceleration += Noise();
 
         Vector3 accelDir = acceleration.normalized;
@@ -88,10 +124,12 @@ public class BoidController : MonoBehaviour {
             velocity = velocity.normalized * settings.minSpeed;
         }
 
+        Vector3 targetPos = transform.position + velocity;
 
+        
 
-        transform.position += velocity * Time.deltaTime;
-        transform.rotation = Quaternion.LookRotation(velocity);
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * settings.movementSmooth);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(velocity), Time.deltaTime * settings.rotationSmooth);
     }
 
     void UpdateNeighbors() {

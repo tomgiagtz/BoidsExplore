@@ -572,6 +572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8719168600429217711}
   - component: {fileID: 8235787436259712276}
+  - component: {fileID: -8118375511688490683}
   m_Layer: 0
   m_Name: batG
   m_TagString: Untagged
@@ -607,3 +608,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f326a879ec9b3ba4a965fc261908ee7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &-8118375511688490683
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8235787436259712277}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1196be2d8635e02429a20b903f7a8c6b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
