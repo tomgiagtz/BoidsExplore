@@ -43,7 +43,8 @@ public class BoidController : MonoBehaviour {
             transform.position = transform.position.normalized * (settings.maxRadius - settings.avoidanceRadius / 2f);
         }
         if (transform.position.magnitude > settings.maxRadius - settings.avoidanceRadius) {
-            float strength = 1 / (settings.maxRadius - transform.position.magnitude);
+            float distance = settings.maxRadius - transform.position.magnitude;
+            float strength = 1 / (distance * distance);
             Vector3 avoidanceDir = -transform.position.normalized;
 
             return avoidanceDir * settings.avoidanceWeight * strength;
@@ -52,29 +53,42 @@ public class BoidController : MonoBehaviour {
     }
 
     Vector3 Separation() {
+        //our result vector, initialized to 0,0,0
         Vector3 separationDir = Vector3.zero;
+        //for each neighbor
         foreach (BoidController neighbor in neighbors) {
             if (neighbor != null) {
+                //vector between the neighbor and this boid
                 Vector3 toNeighbor = transform.position - neighbor.transform.position;
+                //magnitude is the distance between the two
                 float distance = toNeighbor.magnitude;
                 if (distance < settings.avoidanceRadius) {
-                    separationDir += toNeighbor.normalized * 1 / distance;
+                    //use inverse square law to determine strength
+                    separationDir += toNeighbor.normalized * 1 / distance * distance;
                 }
             }
         }
+        //still gets scaled linearally by the weight
         return separationDir.normalized * settings.separationWeight;
     }
 
+
+    //adds all velocities of neighbors to get the average velocity
     Vector3 Alignment() {
         Vector3 alignmentDir = Vector3.zero;
+        //keeping track of how many neighbors regardless of max neighbors
         int neighborCount = 0;
+
+        // add all velocties of valid neighbors
         foreach (BoidController neighbor in neighbors) {
             if (neighbor != null) {
                 alignmentDir += neighbor.velocity;
                 neighborCount++;
             }
         }
+        //take average of all neighbors velocity
         alignmentDir /= neighborCount;
+        //scale by weight
         return alignmentDir.normalized * settings.alignmentWeight;
     }
 
@@ -104,8 +118,8 @@ public class BoidController : MonoBehaviour {
 
         acceleration += EdgeAvoidance();
         acceleration += Separation();
-        acceleration += Alignment();
         acceleration += Cohesion();
+        acceleration += Alignment();
         acceleration += Noise();
 
         Vector3 accelDir = acceleration.normalized;
@@ -137,8 +151,7 @@ public class BoidController : MonoBehaviour {
     }
 
 
-    void OnDrawGizmosSelected() {
-        Debug.Log(Separation());
+    void OnDrawGizmos() {
         Gizmos.color = debugColor;
         foreach (BoidController neighbor in neighbors) {
             if (neighbor != null) {

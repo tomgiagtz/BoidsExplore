@@ -10,6 +10,7 @@ public class BoidSettings : ScriptableObject
     public float spawnRadius = 5f;
     public float maxRadius = 15f;
     public int maxNeighbors = 5;
+    public bool randomNeighbors = true;
 
 
     public float minSpeed = 5f;

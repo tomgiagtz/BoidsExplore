@@ -149,4 +149,6 @@ MonoBehaviour:
     customWindowSize: {x: 400, y: 300}
   _sceneHistory:
   - name: BoidsScene
+    path: Assets/Scenes/BoidsScene.unity
+  - name: BoidsScene
     path: Assets/BoidsScene.unity
