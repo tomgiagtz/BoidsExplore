@@ -93,6 +93,10 @@ public class BoidController : MonoBehaviour {
     }
 
     Vector3 Cohesion() {
+        
+    }
+
+    Vector3 Cohesion() {
         Vector3 centerOfMass = Vector3.zero;
         int neighborCount = 0;
         foreach (BoidController neighbor in neighbors) {
