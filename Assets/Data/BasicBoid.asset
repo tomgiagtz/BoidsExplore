@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: BasicBoid
   m_EditorClassIdentifier: 
   boidPrefab: {fileID: 8235787436259712277, guid: 63549dcc6244ddd4b88756f486f5e0af, type: 3}
-  numBoids: 1200
+  numBoids: 2000
   spawnRadius: 1
   maxRadius: 15
   maxNeighbors: 10
-  randomNeighbors: 0
+  randomNeighbors: 1
   minSpeed: 1
   maxSpeed: 4
   maxAccel: 0.5
-  separationWeight: 6.2
+  separationWeight: 0.9
   alignmentWeight: 0.59
   cohesionWeight: 0.5
   noiseWeight: 1
-  perceptionRadius: 5
-  avoidanceRadius: 5.04
-  avoidanceWeight: 1
+  perceptionRadius: 7.5
+  avoidanceRadius: 5
+  avoidanceWeight: 10
   movementSmooth: 2
   rotationSmooth: 2
