@@ -38,15 +38,20 @@ public class BoidController : MonoBehaviour {
     }
 
     Vector3 EdgeAvoidance() {
+        //if the boid is outside the spawn radius, move it back in to the distance of our avoidance radius
         if (transform.position.magnitude > settings.maxRadius) {
-            Debug.Log("Past an edge");
             transform.position = transform.position.normalized * (settings.maxRadius - settings.avoidanceRadius / 2f);
         }
+        //if the boid is inside the spawn radius, but within it's avoidance distance
         if (transform.position.magnitude > settings.maxRadius - settings.avoidanceRadius) {
+            //get the distance from the boid to the edge of the spawn radius
             float distance = settings.maxRadius - transform.position.magnitude;
+            //set the strength to the inverse square of the distance
             float strength = 1 / (distance * distance);
+            //invert the direction
             Vector3 avoidanceDir = -transform.position.normalized;
 
+            //return multiplyied with our strength
             return avoidanceDir * settings.avoidanceWeight * strength;
         }
         return Vector3.zero;
